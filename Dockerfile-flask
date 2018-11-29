@@ -1,0 +1,23 @@
+# Dockerfile-flask
+
+FROM alpine
+
+MAINTAINER Vincent Tan <vincent.tan@personal.com>
+
+EXPOSE 3031
+VOLUME /usr/src/app/public
+WORKDIR /usr/src/app
+
+RUN apk add --no-cache python3-dev uwsgi-python3 python3
+
+COPY . .
+RUN rm -rf public/*
+
+RUN pip3 install --upgrade pip
+RUN pip3 install -r requirements.txt
+
+CMD [ "uwsgi", "--socket", "0.0.0.0:3031", \
+               "--uid", "uwsgi", \
+               "--plugins", "python3", \
+               "--protocol", "uwsgi", \
+               "--wsgi", "app:app" ]
