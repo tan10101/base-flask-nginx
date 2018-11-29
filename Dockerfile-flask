@@ -16,8 +16,10 @@ RUN rm -rf public/*
 RUN pip3 install --upgrade pip
 RUN pip3 install -r requirements.txt
 
-CMD [ "uwsgi", "--socket", "0.0.0.0:3031", \
-               "--uid", "uwsgi", \
-               "--plugins", "python3", \
-               "--protocol", "uwsgi", \
-               "--wsgi", "app:app" ]
+#CMD [ "uwsgi", "--socket", "0.0.0.0:3031", \
+#               "--uid", "uwsgi", \
+#               "--plugins", "python3", \
+#               "--protocol", "uwsgi", \
+#               "--wsgi", "app:app" ]
+
+CMD [ "uwsgi", "--ini", "uwsgi.ini" ]
